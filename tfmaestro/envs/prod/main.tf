@@ -1,0 +1,31 @@
+module "vpc" {
+  source      = "../../modules/vpc"
+  name        = var.environment
+  description = "Production environment VPC"
+  cidr_block  = "10.0.0.0/16"
+
+  public_subnets = {
+    "${var.environment}-public-subnet-01" = {
+      cidr                    = "10.0.10.0/24"
+      availability_zone       = "eu-central-1a"
+      map_public_ip_on_launch = false
+    },
+    "${var.environment}-public-subnet-02"  = {
+      cidr                    = "10.0.11.0/24"
+      availability_zone       = "eu-central-1b"
+      map_public_ip_on_launch = false
+    }
+  }
+  private_subnets = {
+    "${var.environment}-private-subnet-01" = {
+      cidr                    = "10.0.12.0/24"
+      availability_zone       = "eu-central-1a"
+      map_public_ip_on_launch = false
+    },
+    "${var.environment}-private-subnet-02" = {
+      cidr                    = "10.0.13.0/24"
+      availability_zone       = "eu-central-1b"
+      map_public_ip_on_launch = false
+    }
+  }
+}
